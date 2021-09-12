@@ -66,7 +66,7 @@
         ></a>
       </div>
       <div class="PlaylistItem__Duration opacity-70 text-sm leading-tight">
-        3:57
+        3:56
       </div>
     </div>
   </div>
