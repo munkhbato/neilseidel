@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dreams of Mexico - Neil Seidel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+  <!-- <link href="css/style.css" rel="stylesheet" type="text/css"> -->
+  <link rel="stylesheet" href="./player.css" />
+  <link rel='icon' href='favicon.ico' type='image/x-icon' />
+  <style>
+  </style>
+</head>
+
+<body>
+<section class="section section-relative pt-3">
+  <div class="container">
+    <div class="row row-50">
+      <div class="col-12 col-md-4 mx-auto ">
+        <p class="text-center">
+          <img src="images/mexcover.jpg" alt="Dreams of Mexico" style="max-width: 100%;"/>
+        </p>
+        <p class="text-center">
+          <b>NEW!!!  All original music by Neil Seidel</b><br />
+          * Cartas Mercados co-written with Alex Flores & Dick Winograde.</p>
+        <!-- <p class="text-center"></p> -->
+      </div>
+      <div class="col-12 col-md-5 mx-auto pt-4">
+        <div class="row">
+          <div id="Player" class="col-10 mx-auto">
+            <audio id="audio" preload="none" tabindex="0">
+              <source type="audio/mpeg" src="audio/cartasmarcadas.mp3" data-track-number="1" />
+              <source type="audio/mpeg" src="audio/oldtown.mp3" data-track-number="2" />
+              <source type="audio/mpeg" src="audio/troubleinmexico.mp3" data-track-number="3" />
+              <source type="audio/mpeg" src="audio/spanola.mp3" data-track-number="4" />
+              Your browser does not support HTML5 audio.
+            </audio>
+            <div class="p-cont">
+              <div class="player">
+                <header>
+                  <div class="controls">
+                    <div class="player-play">
+                      <a href="javascript:void(0)" rel="nofollow" class="play-button">
+                        <i class="fas fa-play" title="Play"></i>
+                        <!-- <i class="fas fa-pause" title="Pause" style="display:none;"></i> -->
+                      </a>
+                    </div>
+                    <div class="player-track track">
+                      <div class="player-track-inner">
+                        <div class="player-title">
+                          <!-- Music 1 -->
+                        </div>
+                        <!-- <div class="player-artist">
+                          <span class="by-artist" data-target="artist">
+                            Artist N.
+                          </span>
+                          
+                        </div> -->
+                        <!-- <div class="actions">
+                        </div> -->
+                      </div>
+                    </div>
+                    <div class="player-nav">
+                      <nav class="track-nav">
+                        <a href="javascript:void(0)" rel="nofollow" class="previous-button" title="Previous track">
+                          <i class="fas fa-fast-backward"></i>
+                        </a>
+                        <a href="javascript:void(0)" rel="nofollow" class="next-button" title="Next track">
+                          <i class="fas fa-fast-forward"></i>
+                        </a>
+                      </nav>
+                    </div>
+                  </div>
+                </header>
+                <div class="progress">
+                  <div class="position"></div>
+                  <div class="indicator"></div>
+                  <span class="player-time time">
+                    <span class="cur">0:00</span>
+                    <span class="sep">/</span>
+                    <span class="duration">0:00</span>
+                  </span>
+                </div>
+          
+              </div>
+            </div>
+          </div>
+          <!-- /.player -->
+          <div id="Playlist" class="col-12">
+
+            <ol class="track-list">
+              <li class="clearfix track-list-item" data-track-row="1">
+                <div class="track-number-play">
+                  <a href="javascript:void(0)" rel="nofollow" type="audio/mp3" class="track-icon-play">
+                    <i class="fas fa-play-circle"></i>
+                    <!-- <i class="fas fa-play"></i> -->
+                  </a>
+                  <!-- <span class="track-number">1</span> -->
+                  <span class="track-icon-playing"></span>
+                </div>
+                <div class="track-title">
+                  <span class="track-title-inner">
+                    <a href="javascript:void(0)" rel="nofollow" class="text-main" data-play-track="1">
+                      <span class="title">1. Cartas Marcadas</span> 
+                    </a>
+                    <!-- <span class="duration"> 4:44 </span> -->
+                  </span>
+                </div>
+              </li>
+              <li class="clearfix track-list-item" data-track-row="2">
+                <div class="track-number-play">
+                  <a href="javascript:void(0)" rel="nofollow" type="audio/mp3" class="track-icon-play">
+                    <i class="fas fa-play-circle"></i>
+                    <!-- <i class="fas fa-play"></i> -->
+                  </a>
+                  <!-- <span class="track-number">1</span> -->
+                  <span class="track-icon-playing"></span>
+                </div>
+                <div class="track-title">
+                  <span class="track-title-inner">
+                    <a href="javascript:void(0)" rel="nofollow" class="text-main" data-play-track="2">
+                      <span class="title">2. Old Town</span> 
+                    </a>
+                    <!-- <span class="duration"> 2:24 </span> -->
+                  </span>
+                </div>
+              </li>
+              <li class="clearfix track-list-item" data-track-row="3">
+                <div class="track-number-play">
+                  <a href="javascript:void(0)" rel="nofollow" type="audio/mp3" class="track-icon-play">
+                    <i class="fas fa-play-circle"></i>
+                    <!-- <i class="fas fa-play"></i> -->
+                  </a>
+                  <!-- <span class="track-number">1</span> -->
+                  <span class="track-icon-playing"></span>
+                </div>
+                <div class="track-title">
+                  <span class="track-title-inner">
+                    <a href="javascript:void(0)" rel="nofollow" class="text-main" data-play-track="3">
+                      <span class="title">3. Trouble In Mexico</span> 
+                    </a>
+                    <!-- <span class="duration"> 4:48 </span> -->
+                  </span>
+                </div>
+              </li>
+              <li class="clearfix track-list-item" data-track-row="4">
+                <div class="track-number-play">
+                  <a href="javascript:void(0)" rel="nofollow" type="audio/mp3" class="track-icon-play">
+                    <i class="fas fa-play-circle"></i>
+                    <!-- <i class="fas fa-play"></i> -->
+                  </a>
+                  <!-- <span class="track-number">1</span> -->
+                  <span class="track-icon-playing"></span>
+                </div>
+                <div class="track-title">
+                  <span class="track-title-inner">
+                    <a href="javascript:void(0)" rel="nofollow" class="text-main" data-play-track="4">
+                      <span class="title">4. Spanola</span> 
+                    </a>
+                    <!-- <span class="duration"> 7:22 </span> -->
+                  </span>
+                </div>
+              </li>
+              <li class="clearfix">
+                <div class="track-number-play"></div>
+                <div class="track-title">
+                  <span class="track-title-inner">
+                    <span class="title">5. Neil's Bolero</span>
+                  </span>
+                </div>
+              </li>
+              <hr>
+              <li class="clearfix">
+                <div class="track-number-play"></div>
+                <div class="track-title">
+                  <span class="track-title-inner">
+                    <span class="title">6. Banda</span>
+                  </span>
+                </div>
+              </li>
+              <hr>
+              <li class="clearfix">
+                <div class="track-number-play"></div>
+                <div class="track-title">
+                  <span class="track-title-inner">
+                    <span class="title">7. Six-Eight</span>
+                  </span>
+                </div>
+              </li>
+              <hr>
+              <li class="clearfix">
+                <div class="track-number-play"></div>
+                <div class="track-title">
+                  <span class="track-title-inner">
+                    <span class="title">8. Samba Mex</span>
+                  </span>
+                </div>
+              </li>
+              <hr>
+              <li class="clearfix">
+                <div class="track-number-play"></div>
+                <div class="track-title">
+                  <span class="track-title-inner">
+                    <span class="title">9. Catalina</span>
+                  </span>
+                </div>
+              </li>
+              <hr>
+              <li class="clearfix">
+                <div class="track-number-play"></div>
+                <div class="track-title">
+                  <span class="track-title-inner">
+                    <span class="title">10. Pocito Dinero</span>
+                  </span>
+                </div>
+              </li>
+              
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <!-- <br> -->
+    <div class="row">
+      <div class="notes col-12 mx-auto">
+        <!-- <span><strong>ALBUM NOTES</strong></span> -->
+        <!-- <p>For all you fans of the music of Shlomo Carlebach, here is a release by Neil Seidel, an amazing musician who was Shlomo's favorite guitarist.  This is an all instrumental CD of popular Shlomo Carlebach melodies by a master guitarist who spent 23 years with Shlomo.  The CD will bring back fond memories to those who were with Shlomo, and inspire those who are new to the music.</p> -->
+      </div>
+      <div class="col-10"></div>
+      <div class="text-center col-2">
+        <p>
+          <b><a href="index.html">&lt;&lt; Home</a></b>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+<p class="text-center small">
+  <span class="copyright">
+    Copyright &copy;2015 Neil Seidel. All rights reserved.  
+    <br />
+    Email: <a href="mailto:guitarflight@aol.com">guitarflight@aol.com</a> 
+    &nbsp;&nbsp;|&nbsp;&nbsp; Web: 
+    <a href="http://www.SeidelEventProductions.com/">www.SeidelEventProductions.com</a> 
+    <br />
+    Developed by <a href="mailto:munkhbato.gm@gmail.com">munkhbato.gm@gmail.com</a> 
+  </span>
+  <p></p>
+</p>
+
+<script src="player.js"></script>
+</body>
+</html>
+

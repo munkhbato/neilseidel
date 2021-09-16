@@ -18,7 +18,7 @@
               <img
                 class=""
                 style="width:160px;"
-                src="@/static/images/leaving-life.jpg"
+                src="/images/leaving-life.jpg"
                 alt="Leaving life"
               />
             </a>

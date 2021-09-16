@@ -16,6 +16,18 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      // {
+      //   type: 'application/json',
+      //   src: 'js/data.json',
+      //   body: true
+      // },
+      // {
+      //   type: 'text/javascript',
+      //   src: 'js/player.js',
+      //   body: true
+      // }
     ]
   },
 
@@ -42,5 +54,22 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    loaders: {
+      vue: {
+        transformAssetUrls: {
+          audio: 'src',
+          source: 'src',
+        }
+      }
+    },
+    extend(config, ctx) {
+      config.module.rules.push({
+        test: /\.(ogg|mp3|wav|mpe?g)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]'
+        }
+      })
+    }
   }
 }

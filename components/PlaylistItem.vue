@@ -2,26 +2,28 @@
   <div
     class="
       PlaylistItem__PlaylistItemComponent
-      p-4
+      py-2
+      px-2
       flex flex-wrap
       items-start
       h-auto
+      cursor-pointer
+      rounded-lg
     "
   >
     <div class="PlaylistItem__PlaylistItemInfoContainer flex w-full ">
       <div
         class="
           Image__ImageContainer
-          w-14
-          h-14
-          mr-6
+          mr-4
+          ml-2
           rounded-lg
           overflow-hidden
         "
       >
         <div class="Image__Container ">
           <img
-            src="@/static/images/cd.jpeg"
+            src="/images/world-traveler-cover.jpg"
             class="Image__ImageComponent"
             style="opacity: 1"
           />
@@ -36,21 +38,21 @@
       </div>
       <div class="PlaylistItem__Info overflow-hidden flex-1">
         <div
-          title="Burdens"
+          :title="track.title"
           class="PlaylistItem__Title font-semibold leading-tight"
         >
-          Burdens
+          {{ track.title }}
         </div>
         <div class="PlaylistItem__InfoBottom">
           <div
             title="Neil Seidel"
-            class="PlaylistItem__Author font-light text-sm"
+            class="PlaylistItem__Author font-normal text-sm"
           >
             Neil Seidel
           </div>
         </div>
       </div>
-      <div class="Buttons__ButtonsComponent">
+      <!-- <div class="Buttons__ButtonsComponent">
         <a
           href="https://files.elfsight.com/storage/f7e9a9de-578a-404d-9755-29717c16030a/5826bebf-21a6-4d8d-8a81-70335d9c5ed8.mpga"
           target="_blank"
@@ -64,9 +66,9 @@
               ></path>
             </svg></div
         ></a>
-      </div>
+      </div> -->
       <div class="PlaylistItem__Duration opacity-70 text-sm leading-tight">
-        3:56
+        <!-- {{ track.duration }} -->
       </div>
     </div>
   </div>
@@ -74,9 +76,65 @@
 
 <script>
 export default {
-  name: "PlaylistItem"
+  name: "PlaylistItem",
+  data() {
+    return {
+      // track: this.track
+    };
+  },
+  props: ["track"]
 };
 </script>
 
+<style lang="scss" scoped>
+.PlaylistItem__PlaylistItemComponent {
+  &.Active__Track,
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    @apply text-white;
 
-<style scoped></style>
+    .PlaylistItem__IconContainer {
+      opacity: 1;
+    }
+  }
+}
+
+.Image__ImageContainer {
+  width: 54px;
+  height: 54px;
+  // border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+}
+.Image__Container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.PlaylistItem__IconContainer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(17, 17, 17, 0.2);
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.3s ease 0s;
+
+  & > .PlaylistItem__Icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    transition: all 0.3s ease 0s;
+  }
+}
+</style>
