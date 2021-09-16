@@ -14,7 +14,7 @@
       <div class="Container__BgIn w-full">
         <div class="Container__Full mx-auto">
           <div class="Container__Top p-4 ">
-            <audio id="audio" preload="none" tabindex="0">
+            <audio id="audio" preload="metadata" tabindex="0">
               Your browser does not support HTML5 audio.
             </audio>
             <div class="Container__Info flex">
@@ -208,7 +208,8 @@ export default {
     };
   },
   mounted() {
-    var player = new audioPlayer(__DATA);
+    
+    var player = new audioPlayer(__DATA, );
     player.initPlayer();
   }
 };
@@ -275,7 +276,7 @@ export default {
       background-color: rgba(255, 239, 175, 0.4);
 
       height: 4px;
-      width: 50%;
+      width: 0%;
       border-radius: 4px;
     }
     & > .Indicator {

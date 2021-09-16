@@ -19,7 +19,7 @@ var audioPlayer = function (DATA) {
   var _playAHead = false;
   var _progressCounter = 0;
   var _progressBarIndicator =
-    _elements.progressBar.querySelector('.Indicator');
+    _elements.progressBar.querySelector('.Progress > .Indicator');
   var _trackLoaded = false;
 
   /**
@@ -49,9 +49,9 @@ var audioPlayer = function (DATA) {
       y: null,
     };
 
-    var isTouchSuopported = "ontouchstart" in window;
+    var isTouchSupported = "ontouchstart" in window;
 
-    if (isTouchSuopported) {
+    if (isTouchSupported) {
       //For touch devices
       coords.x = e.clientX - containerX;
       coords.y = e.clientY - containerY;
@@ -72,13 +72,13 @@ var audioPlayer = function (DATA) {
     }
   };
 
-  var _handleProgressIndicatorClick = function (e) {
-    var progressBar = document.querySelector(".progress");
+  var _handleProgressBarClick = function (e) {
+    var progressBar = document.querySelector(".Progress");
     var xCoords = _getXY(e).x;
 
     return (
-      (xCoords - progressBar.offsetLeft) / progressBar.children[1].offsetWidth
-    );
+      xCoords / progressBar.offsetWidth
+    )
   };
 
   /**
@@ -87,13 +87,11 @@ var audioPlayer = function (DATA) {
    **/
   var initPlayer = function () {
     if (_currentTrack === 1 || _currentTrack === null) {
-      // console.log(_elements)
       _elements.playerButtons.previousTrackBtn.classList.add("disabled");
     }
 
     //Adding event listeners to playlist clickable elements.
     for (var i = 0; i < _elements.playListRows.length; i++) {
-      var smallToggleBtn = _elements.playerButtons.smallToggleBtn[i];
       var playListLink = _elements.playListRows[i];
 
       //Playlist link clicked.
@@ -104,8 +102,6 @@ var audioPlayer = function (DATA) {
           var selectedTrack = parseInt(
             this.getAttribute("data-track-row")
           );
-
-          console.log(selectedTrack, _currentTrack);
 
           if (selectedTrack !== _currentTrack) {
             _resetPlayStatus();
@@ -119,40 +115,17 @@ var audioPlayer = function (DATA) {
           } else {
             _playBack(this);
           }
-          console.log(selectedTrack, _currentTrack);
-
         },
         false
       );
 
-      //Small toggle button clicked.
-      // smallToggleBtn.addEventListener(
-      //   "click",
-      //   function (e) {
-      //     e.preventDefault();
-      //     var selectedTrack = parseInt(
-      //       this.parentNode.parentNode.getAttribute("data-track-row")
-      //     );
-
-      //     if (selectedTrack !== _currentTrack) {
-      //       _resetPlayStatus();
-      //       _currentTrack = null;
-      //       _trackLoaded = false;
-      //     }
-
-      //     if (_trackLoaded === false) {
-      //       _currentTrack = parseInt(selectedTrack);
-      //       _setTrack();
-      //     } else {
-      //       _playBack(this);
-      //     }
-      //   },
-      //   false
-      // );
     }
 
     //Audio time has changed so update it.
     _elements.audio.addEventListener("timeupdate", _trackTimeChanged, false);
+
+    //Audio time has changed so update it.
+    _elements.audio.addEventListener("progress", _bufferProgress, false);
 
     //Audio track has ended playing.
     _elements.audio.addEventListener(
@@ -164,17 +137,17 @@ var audioPlayer = function (DATA) {
     );
 
     _elements.audio.addEventListener("loadstart", function (e) {
-      console.log('loadstart', e);
+      // console.log('loadstart', e);
       _elements.trackInfoBox.classList.add("Not__Loaded");
 
     })
 
     _elements.audio.addEventListener("loadeddata", function (e) {
-      console.log('loadeddata', e);
+      // console.log('loadeddata', e);
       setTimeout(function () {
         _elements.trackInfoBox.classList.remove("Not__Loaded");
 
-      }, 1000)
+      }, 600)
 
     })
 
@@ -251,9 +224,8 @@ var audioPlayer = function (DATA) {
       false
     );
 
-    //User is moving progress indicator.
-    // _elements.progressBar.addEventListener("onclick", _mouseClick, false);
-    // console.log(_progressBarIndicator);
+    // User is moving progress indicator.
+    _elements.progressBar.addEventListener("click", _mouseClick, false);
     _progressBarIndicator.addEventListener("mousedown", _mouseDown, false);
 
     // //User stops moving progress indicator.
@@ -264,14 +236,16 @@ var audioPlayer = function (DATA) {
     _setTrackTitle(_currentTrack, DATA.trackList);
   };
 
-  // var _mouseClick = function (e) {
-  //     _moveProgressIndicator();
+  var _mouseClick = function (e) {
 
-  //     var duration = parseFloat(audio.duration);
-  //     var progressIndicatorClick = parseFloat(_handleProgressIndicatorClick(e));
+    // _moveProgressIndicator(e);
 
-  //     audio.currentTime = duration * progressIndicatorClick;
-  // }
+    var duration = parseFloat(audio.duration);
+    var newPositionPercent = parseFloat(_handleProgressBarClick(e));
+
+    audio.currentTime = duration * newPositionPercent;
+  }
+
   /**
    * Handles the mousedown event by a user and determines if the mouse is being moved.
    *
@@ -279,7 +253,7 @@ var audioPlayer = function (DATA) {
    **/
   var _mouseDown = function (e) {
     console.log("mouse down");
-    window.addEventListener("mousemove", _moveProgressIndicator, true);
+    // window.addEventListener("mousemove", _moveProgressIndicator, true);
     audio.removeEventListener("timeupdate", _trackTimeChanged, false);
 
     _playAHead = true;
@@ -295,10 +269,10 @@ var audioPlayer = function (DATA) {
 
     if (_playAHead === true) {
       var duration = parseFloat(audio.duration);
-      var progressIndicatorClick = parseFloat(_handleProgressIndicatorClick(e));
-      window.removeEventListener("mousemove", _moveProgressIndicator, true);
+      var positionNewPercent = parseFloat(_handleProgressBarClick(e));
+      // window.removeEventListener("mousemove", _moveProgressIndicator, true);
 
-      audio.currentTime = duration * progressIndicatorClick;
+      audio.currentTime = duration * positionNewPercent;
       audio.addEventListener("timeupdate", _trackTimeChanged, false);
       _playAHead = false;
     }
@@ -309,30 +283,33 @@ var audioPlayer = function (DATA) {
    *
    * @param e The event object.
    **/
-  var _moveProgressIndicator = function (e) {
-    console.log("move progress bar");
-    var newPosition = 0;
-    var progressBarOffsetLeft = _elements.progressBar.offsetLeft;
-    var progressBarWidth = 0;
-    var progressBarIndicator =
-      _elements.progressBar.children[-1];
-    var progressBarIndicatorWidth = _progressBarIndicator.offsetWidth;
-    var xCoords = _getXY(e).x;
+  // var _moveProgressIndicator = function (e) {
+  //   console.log("move progress bar");
+  //   var newPosition = 0;
+  //   var progressBarOffsetLeft = _elements.progressBar.offsetLeft;
+  //   var progressBarWidth = _elements.progressBar.offsetWidth;
+  //   var progressPosition = _elements.progressBar.children[1];
+  //   // var progressBarIndicatorWidth = _progressBarIndicator.offsetWidth;
+  //   var xCoords = _getXY(e).x;
 
-    progressBarWidth =
-      _elements.progressBar.children[-1].offsetWidth - progressBarIndicatorWidth;
-    newPosition = xCoords - progressBarOffsetLeft;
+    
+  //   // progressBarWidth = 
+  //   // - progressBarIndicatorWidth;
+  //   newPosition = parseFloat((xCoords / progressBarWidth) * 100)
+  //   // - progressBarOffsetLeft;
+    
+  //   console.log('click', xCoords, 'pos', progressPosition.style.width, 'new', newPosition, 'W', progressBarWidth);
 
-    if (newPosition >= 1 && newPosition <= progressBarWidth) {
-      progressBarIndicator.style.left = newPosition + ".px";
-    }
-    if (newPosition < 0) {
-      progressBarIndicator.style.left = "0";
-    }
-    if (newPosition > progressBarWidth) {
-      progressBarIndicator.style.left = progressBarWidth + "px";
-    }
-  };
+  //   if (xCoords > 0 && xCoords < progressBarWidth) {
+  //     progressPosition.style.width = `${newPosition}%`;
+  //   }
+  //   else if (xCoords <= 0) {
+  //     progressPosition.style.width = "0%";
+  //   }
+  //   else if (xCoords >= progressBarWidth) {
+  //     progressPosition.style.width = '100%';
+  //   }
+  // };
 
   /**
    * Controls playback of the audio element.
@@ -358,6 +335,8 @@ var audioPlayer = function (DATA) {
    *
    **/
   var _setTrack = function () {
+    document.querySelector(".Loaded").style.width = "0%";
+
     var songURL = DATA.trackList[_currentTrack - 1].src;
 
     _elements.audio.setAttribute("src", songURL);
@@ -397,15 +376,8 @@ var audioPlayer = function (DATA) {
     var trackTitleBox = document.querySelector(
       "#Playlist .Container__Info .Music__Title"
     );
-    // console.log(currentTrack, trackList);
-    // var trackTitle = playListRows[currentTrack - 1].querySelector('.PlaylistItem__Title').getAttribute('title');
     var trackTitle = trackList[currentTrack - 1].title;
-
-    // trackTitleBox.innerHTML = null;
-
     trackTitleBox.innerHTML = trackTitle;
-
-    // document.title = trackTitle;
   };
 
   /**
@@ -431,30 +403,24 @@ var audioPlayer = function (DATA) {
     var currentTimeBox = document.querySelector(
       "#Playlist .Container__Progress .Player__Time .Current"
     );
-    var currentTime = audio.currentTime;
-    var duration = audio.duration;
+    var currentTime = _elements.audio.currentTime;
+    var duration = _elements.audio.duration;
     var durationBox = document.querySelector(
       "#Playlist .Container__Progress .Player__Time .Duration"
     );
     var trackCurrentTime = _trackTime(currentTime);
     var trackDuration = duration ? _trackTime(duration) : "00:00";
 
-    // console.log(trackCurrentTime, trackDuration, duration)
-
-    // currentTimeBox.innerHTML = null;
     currentTimeBox.innerHTML = trackCurrentTime;
-
-    // durationBox.innerHTML = null;
     durationBox.innerHTML = trackDuration;
 
-    _updateProgressIndicator(audio);
-    _updateProgress(audio);
-    // audio.onprogress = function() {
-    //     if (audio.buffered.length > 0) {
-    //         _bufferProgress(audio);
-    //     }
-    // }
+    _updateProgress(_elements.audio);
 
+    audio.onprogress = function () {
+      if (audio.buffered.length > 0) {
+        _bufferProgress(audio);
+      }
+    }
   };
 
   /**
@@ -483,6 +449,25 @@ var audioPlayer = function (DATA) {
   };
 
   /**
+   * Updates downloaded bar
+   *
+   **/
+  var _bufferProgress = function () {
+    // var currentTime = audio.currentTime;
+    var duration = _elements.audio.duration;
+
+    if (duration > 0) {
+      for (var i = 0; i < _elements.audio.buffered.length; i++) {
+        if (_elements.audio.buffered.start(_elements.audio.buffered.length - 1 - i) < _elements.audio.currentTime) {
+          document.querySelector(".Loaded").style.width = (_elements.audio.buffered.end(_elements.audio.buffered.length - 1 - i) / duration) * 100 + "%";
+          break;
+        }
+      }
+    }
+  }
+
+
+  /**
    * Updates both the large and small toggle buttons accordingly.
    *
    * @param audioPlaying A booean value indicating if audio is playing or paused.
@@ -503,7 +488,6 @@ var audioPlayer = function (DATA) {
       //     _currentTrack - 1
       //   ].querySelector('i.fas').className = "fas fa-play-circle";
     }
-    console.log('check:', _currentTrack);
     //Update next and previous buttons accordingly
     if (_currentTrack === 1) {
       _elements.playerButtons.previousTrackBtn.classList.add("disabled");
@@ -534,7 +518,7 @@ var audioPlayer = function (DATA) {
 
     indicatorLocation = progressBarIndicatorWidth * (currentTime / duration);
 
-    _progressBarIndicator.style.left = indicatorLocation + "px";
+    // _progressBarIndicator.style.left = indicatorLocation + "px";
   };
 
   /**
@@ -557,7 +541,6 @@ var audioPlayer = function (DATA) {
 
   return {
     initPlayer: initPlayer,
-    // songs: DATA.trackList
   };
 };
 
@@ -567,4 +550,5 @@ var audioPlayer = function (DATA) {
 //   player.initPlayer();
 //   // window.songs = player.songs;
 // })();
+
 export default audioPlayer;
