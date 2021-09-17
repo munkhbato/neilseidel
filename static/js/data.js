@@ -2,23 +2,28 @@
 const __DATA = {
   trackList: [{
       title: "Desert Scapes",
-      src: "/audio/DesertScapes.mp3"
+      src: "https://neilseidel.com/audio/DesertScapes.mp3",
+      duration: "05:49"
     },
     {
       title: "Hawaiian Dreams",
-      src: "/audio/HawaiianDreams.mp3"
+      src: "https://neilseidel.com/audio/HawaiianDreams.mp3",
+      duration: "05:49"
     },
     {
       title: "Mex. Opening Sequence",
-      src: "/audio/openingsequence.mp3"
+      src: "https://neilseidel.com/audio/openingsequence.mp3",
+      duration: "05:49"
     },
     {
       title: "Funk Jam",
-      src: "/audio/funkjam.mp3"
+      src: "https://neilseidel.com/audio/funkjam.mp3",
+      duration: "05:49"
     },
     {
       title: "Flying Free",
-      src: "/audio/flyingfree.mp3"
+      src: "https://neilseidel.com/audio/flyingfree.mp3",
+      duration: "05:49"
     },
 
     // "Parent Exchange",

@@ -9,17 +9,17 @@ var audioPlayer = function (DATA) {
       largeToggleBtn: document.querySelector(".ToggleButton"),
       nextTrackBtn: document.querySelector(".NextButton"),
       previousTrackBtn: document.querySelector(".PrevButton"),
-      smallToggleBtn: document.getElementsByClassName("PlaylistItem__IconContainer"),
+      smallToggleBtn: document.getElementsByClassName("Container__PlaylistItemIcon"),
     },
-    progressBar: document.querySelector(".Progress"),
-    playListRows: document.getElementsByClassName("PlaylistItem__PlaylistItemComponent"),
+    progressBar: document.querySelector(".ProgressBar"),
+    playListRows: document.getElementsByClassName("PlaylistItem__Component"),
 
     trackInfoBox: document.querySelector(".Container__Progress .Player__Time"),
   };
   var _playAHead = false;
-  var _progressCounter = 0;
-  var _progressBarIndicator =
-    _elements.progressBar.querySelector('.Progress > .Indicator');
+  // var _progressCounter = 0;
+  var _progressIndicator =
+    _elements.progressBar.querySelector('.ProgressBar > .ProgressBar__Indicator');
   var _trackLoaded = false;
 
   /**
@@ -28,11 +28,11 @@ var audioPlayer = function (DATA) {
    * @param audio The audio element on the page.
    **/
   var _updateProgress = function (audio) {
-    var newProgress = parseFloat(audio.currentTime) * 100 / audio.duration;
+    var newPlayedWidth = parseFloat(audio.currentTime) * 100 / audio.duration;
 
-    var progressBar = _elements.progressBar.children[1];
+    var progressPlayed = _elements.progressBar.children[1];
 
-    progressBar.style.width = newProgress + "%";
+    progressPlayed.style.width = newPlayedWidth + "%";
   };
 
   /**
@@ -72,8 +72,9 @@ var audioPlayer = function (DATA) {
     }
   };
 
-  var _handleProgressBarClick = function (e) {
-    var progressBar = document.querySelector(".Progress");
+  var _handleProgressIndicatorClick = function (e) {
+    var progressBar = document.querySelector(".ProgressBar");
+    // console.log(progressBar);
     var xCoords = _getXY(e).x;
 
     return (
@@ -87,6 +88,7 @@ var audioPlayer = function (DATA) {
    **/
   var initPlayer = function () {
     if (_currentTrack === 1 || _currentTrack === null) {
+      // console.log(_elements)
       _elements.playerButtons.previousTrackBtn.classList.add("disabled");
     }
 
@@ -103,8 +105,10 @@ var audioPlayer = function (DATA) {
             this.getAttribute("data-track-row")
           );
 
+          // console.log(selectedTrack, _currentTrack);
+
           if (selectedTrack !== _currentTrack) {
-            _resetPlayStatus();
+            // _resetPlayStatus();
             _currentTrack = null;
             _trackLoaded = false;
           }
@@ -115,6 +119,8 @@ var audioPlayer = function (DATA) {
           } else {
             _playBack(this);
           }
+          // console.log(selectedTrack, _currentTrack);
+
         },
         false
       );
@@ -124,8 +130,13 @@ var audioPlayer = function (DATA) {
     //Audio time has changed so update it.
     _elements.audio.addEventListener("timeupdate", _trackTimeChanged, false);
 
-    //Audio time has changed so update it.
-    _elements.audio.addEventListener("progress", _bufferProgress, false);
+    //Audio buffer has changed so update it.
+    _elements.audio.addEventListener("progress", function (e) {
+      // console.log('progress', e, 'buf', this.buffered.length);
+      if (this.buffered.length > 0) {
+        _bufferProgress(this);
+      }
+    })
 
     //Audio track has ended playing.
     _elements.audio.addEventListener(
@@ -177,7 +188,7 @@ var audioPlayer = function (DATA) {
             break;
         }
         _trackLoaded = false;
-        _resetPlayStatus();
+        // _resetPlayStatus();
       },
       false
     );
@@ -203,7 +214,7 @@ var audioPlayer = function (DATA) {
         if (this.classList.contains("disabled") !== true) {
           _currentTrack++;
           _trackLoaded = false;
-          _resetPlayStatus();
+          // _resetPlayStatus();
           _setTrack();
         }
       },
@@ -217,7 +228,7 @@ var audioPlayer = function (DATA) {
         if (this.classList.contains("disabled") !== true) {
           _currentTrack--;
           _trackLoaded = false;
-          _resetPlayStatus();
+          // _resetPlayStatus();
           _setTrack();
         }
       },
@@ -226,7 +237,8 @@ var audioPlayer = function (DATA) {
 
     // User is moving progress indicator.
     _elements.progressBar.addEventListener("click", _mouseClick, false);
-    _progressBarIndicator.addEventListener("mousedown", _mouseDown, false);
+    // console.log(_progressIndicator);
+    _progressIndicator.addEventListener("mousedown", _mouseDown, false);
 
     // //User stops moving progress indicator.
     window.addEventListener("mouseup", _mouseUp, false);
@@ -234,14 +246,15 @@ var audioPlayer = function (DATA) {
     // _setTrack();
     // _playBack();
     _setTrackTitle(_currentTrack, DATA.trackList);
-  };
+    _setActiveItem(_currentTrack, _elements.playListRows);
+    };
 
   var _mouseClick = function (e) {
 
     // _moveProgressIndicator(e);
 
     var duration = parseFloat(audio.duration);
-    var newPositionPercent = parseFloat(_handleProgressBarClick(e));
+    var newPositionPercent = parseFloat(_handleProgressIndicatorClick(e));
 
     audio.currentTime = duration * newPositionPercent;
   }
@@ -253,7 +266,7 @@ var audioPlayer = function (DATA) {
    **/
   var _mouseDown = function (e) {
     console.log("mouse down");
-    // window.addEventListener("mousemove", _moveProgressIndicator, true);
+    window.addEventListener("mousemove", _moveProgressIndicator, true);
     audio.removeEventListener("timeupdate", _trackTimeChanged, false);
 
     _playAHead = true;
@@ -269,8 +282,8 @@ var audioPlayer = function (DATA) {
 
     if (_playAHead === true) {
       var duration = parseFloat(audio.duration);
-      var positionNewPercent = parseFloat(_handleProgressBarClick(e));
-      // window.removeEventListener("mousemove", _moveProgressIndicator, true);
+      var positionNewPercent = parseFloat(_handleProgressIndicatorClick(e));
+      window.removeEventListener("mousemove", _moveProgressIndicator, true);
 
       audio.currentTime = duration * positionNewPercent;
       audio.addEventListener("timeupdate", _trackTimeChanged, false);
@@ -283,33 +296,31 @@ var audioPlayer = function (DATA) {
    *
    * @param e The event object.
    **/
-  // var _moveProgressIndicator = function (e) {
-  //   console.log("move progress bar");
-  //   var newPosition = 0;
-  //   var progressBarOffsetLeft = _elements.progressBar.offsetLeft;
-  //   var progressBarWidth = _elements.progressBar.offsetWidth;
-  //   var progressPosition = _elements.progressBar.children[1];
-  //   // var progressBarIndicatorWidth = _progressBarIndicator.offsetWidth;
-  //   var xCoords = _getXY(e).x;
+  var _moveProgressIndicator = function (e) {
+    console.log("move progress bar");
+    var newPosition = 0;
+    var progressBarOffsetLeft = _elements.progressBar.offsetLeft;
+    var progressBarWidth = _elements.progressBar.offsetWidth;
+    var progressPlayed = _elements.progressBar.children[1];
+    // var progressIndicatorWidth = _progressIndicator.offsetWidth;
+    var xCoords = _getXY(e).x;
 
-    
-  //   // progressBarWidth = 
-  //   // - progressBarIndicatorWidth;
-  //   newPosition = parseFloat((xCoords / progressBarWidth) * 100)
-  //   // - progressBarOffsetLeft;
-    
-  //   console.log('click', xCoords, 'pos', progressPosition.style.width, 'new', newPosition, 'W', progressBarWidth);
 
-  //   if (xCoords > 0 && xCoords < progressBarWidth) {
-  //     progressPosition.style.width = `${newPosition}%`;
-  //   }
-  //   else if (xCoords <= 0) {
-  //     progressPosition.style.width = "0%";
-  //   }
-  //   else if (xCoords >= progressBarWidth) {
-  //     progressPosition.style.width = '100%';
-  //   }
-  // };
+    // progressBarWidth = 
+    // - progressIndicatorWidth;
+    newPosition = parseFloat((xCoords / progressBarWidth) * 100)
+    // - progressBarOffsetLeft;
+
+    // console.log('click', xCoords, 'pos', progressPlayed.style.width, 'new', newPosition, 'W', progressBarWidth);
+
+    if (xCoords > 0 && xCoords < progressBarWidth) {
+      progressPlayed.style.width = `${newPosition}%`;
+    } else if (xCoords <= 0) {
+      progressPlayed.style.width = "0%";
+    } else if (xCoords >= progressBarWidth) {
+      progressPlayed.style.width = '100%';
+    }
+  };
 
   /**
    * Controls playback of the audio element.
@@ -319,11 +330,11 @@ var audioPlayer = function (DATA) {
     if (_elements.audio.paused) {
       _elements.audio.play();
       _updatePlayStatus(true);
-      document.title = "\u25B6 " + document.title;
+      // document.title = "\u25B6 " + document.title;
     } else {
       _elements.audio.pause();
       _updatePlayStatus(false);
-      document.title = document.title.substr(2);
+      // document.title = document.title.substr(2);
     }
 
     // _elements.trackInfoBox.classList.remove("Not__Loaded");
@@ -335,7 +346,7 @@ var audioPlayer = function (DATA) {
    *
    **/
   var _setTrack = function () {
-    document.querySelector(".Loaded").style.width = "0%";
+    document.querySelector(".ProgressBar__Played").style.width = "0%";
 
     var songURL = DATA.trackList[_currentTrack - 1].src;
 
@@ -345,9 +356,7 @@ var audioPlayer = function (DATA) {
     _trackLoaded = true;
 
     _setTrackTitle(_currentTrack, DATA.trackList);
-
     _setActiveItem(_currentTrack, _elements.playListRows);
-
 
     _playBack();
   };
@@ -373,11 +382,12 @@ var audioPlayer = function (DATA) {
    * @param playListRows The playlist object.
    **/
   var _setTrackTitle = function (currentTrack, trackList) {
-    var trackTitleBox = document.querySelector(
-      "#Playlist .Container__Info .Music__Title"
+    var trackTitleBox = document.querySelectorAll(
+      "#Section__Playlist .Track__Title"
     );
     var trackTitle = trackList[currentTrack - 1].title;
-    trackTitleBox.innerHTML = trackTitle;
+    trackTitleBox[0].innerHTML = trackTitle;
+    trackTitleBox[1].innerHTML = trackTitle;
   };
 
   /**
@@ -390,7 +400,7 @@ var audioPlayer = function (DATA) {
       _currentTrack === DATA.trackList.length ? 1 : _currentTrack + 1;
     _trackLoaded = false;
 
-    _resetPlayStatus();
+    // _resetPlayStatus();
 
     _setTrack();
   };
@@ -401,12 +411,12 @@ var audioPlayer = function (DATA) {
    **/
   var _trackTimeChanged = function () {
     var currentTimeBox = document.querySelector(
-      "#Playlist .Container__Progress .Player__Time .Current"
+      "#Section__Playlist .Container__Progress .Player__Time .Current"
     );
     var currentTime = _elements.audio.currentTime;
     var duration = _elements.audio.duration;
     var durationBox = document.querySelector(
-      "#Playlist .Container__Progress .Player__Time .Duration"
+      "#Section__Playlist .Container__Progress .Player__Time .Duration"
     );
     var trackCurrentTime = _trackTime(currentTime);
     var trackDuration = duration ? _trackTime(duration) : "00:00";
@@ -415,12 +425,8 @@ var audioPlayer = function (DATA) {
     durationBox.innerHTML = trackDuration;
 
     _updateProgress(_elements.audio);
+    _updateProgressIndicator();
 
-    audio.onprogress = function () {
-      if (audio.buffered.length > 0) {
-        _bufferProgress(audio);
-      }
-    }
   };
 
   /**
@@ -452,14 +458,22 @@ var audioPlayer = function (DATA) {
    * Updates downloaded bar
    *
    **/
-  var _bufferProgress = function () {
-    // var currentTime = audio.currentTime;
-    var duration = _elements.audio.duration;
+  var _bufferProgress = function (audio) {
+    var currentTime = audio.currentTime;
+    var duration = audio.duration;
+    var l = audio.buffered.length
+    // console.log(l);
+    // console.log(audio.buffered.start(0));
+    // console.log(currentTime);
+
+    // console.log(audio.buffered.end(0));
+    // console.log(audio.buffered.end(0) / duration *100);
 
     if (duration > 0) {
-      for (var i = 0; i < _elements.audio.buffered.length; i++) {
-        if (_elements.audio.buffered.start(_elements.audio.buffered.length - 1 - i) < _elements.audio.currentTime) {
-          document.querySelector(".Loaded").style.width = (_elements.audio.buffered.end(_elements.audio.buffered.length - 1 - i) / duration) * 100 + "%";
+      for (var i = 0; i < l; i++) {
+        // if (audio.buffered.start(l - 1 - i) <= currentTime) {
+        if (audio.buffered.end(l - 1 - i) > currentTime) {
+          _elements.progressBar.children[0].style.width = (audio.buffered.end(l - 1 - i) / duration) * 100 + "%";
           break;
         }
       }
@@ -488,6 +502,7 @@ var audioPlayer = function (DATA) {
       //     _currentTrack - 1
       //   ].querySelector('i.fas').className = "fas fa-play-circle";
     }
+    // console.log('check:', _currentTrack);
     //Update next and previous buttons accordingly
     if (_currentTrack === 1) {
       _elements.playerButtons.previousTrackBtn.classList.add("disabled");
@@ -509,16 +524,18 @@ var audioPlayer = function (DATA) {
    *
    **/
   var _updateProgressIndicator = function () {
-    var currentTime = parseFloat(_elements.audio.currentTime);
-    var duration = parseFloat(_elements.audio.duration);
-    var indicatorLocation = 0;
-    var progressBarWidth = parseFloat(_elements.progressBar.offsetWidth);
-    var progressIndicatorWidth = parseFloat(_progressBarIndicator.offsetWidth);
-    var progressBarIndicatorWidth = progressBarWidth - progressIndicatorWidth;
+    // var currentTime = parseFloat(audio.currentTime);
+    // var duration = parseFloat(audio.duration);
+    // var indicatorLocation = 0;
+    // var indicatorLocation = parseFloat(_elements.progressBar.children[1].offsetWidth);
+    // var progressIndicatorWidth = parseFloat(_progressIndicator.offsetWidth);
+    // var progressIndicatorWidth = progressBarWidth 
+    //- progressIndicatorWidth;
 
-    indicatorLocation = progressBarIndicatorWidth * (currentTime / duration);
+    // indicatorLocation = loadedWidth * (currentTime / duration);
 
-    // _progressBarIndicator.style.left = indicatorLocation + "px";
+    var indicatorLocation = parseFloat(_elements.progressBar.children[1].offsetWidth);
+    _progressIndicator.style.left = indicatorLocation + "px";
   };
 
   /**
