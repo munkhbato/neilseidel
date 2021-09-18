@@ -1,4 +1,4 @@
-var audioPlayer = function (DATA) {
+var audioPlayer = function (_Tracks) {
   "use strict";
 
   // Private variables
@@ -245,7 +245,7 @@ var audioPlayer = function (DATA) {
 
     // _setTrack();
     // _playBack();
-    _setTrackTitle(_currentTrack, DATA.trackList);
+    _setTrackTitle(_currentTrack, _Tracks);
     _setActiveItem(_currentTrack, _elements.playListRows);
     };
 
@@ -348,14 +348,14 @@ var audioPlayer = function (DATA) {
   var _setTrack = function () {
     document.querySelector(".ProgressBar__Played").style.width = "0%";
 
-    var songURL = DATA.trackList[_currentTrack - 1].src;
+    var songURL = _Tracks[_currentTrack - 1].src;
 
     _elements.audio.setAttribute("src", songURL);
     _elements.audio.load();
 
     _trackLoaded = true;
 
-    _setTrackTitle(_currentTrack, DATA.trackList);
+    _setTrackTitle(_currentTrack, _Tracks);
     _setActiveItem(_currentTrack, _elements.playListRows);
 
     _playBack();
@@ -383,7 +383,7 @@ var audioPlayer = function (DATA) {
    **/
   var _setTrackTitle = function (currentTrack, trackList) {
     var trackTitleBox = document.querySelectorAll(
-      "#Section__Playlist .Track__Title"
+      "#Playlist .Track__Title"
     );
     var trackTitle = trackList[currentTrack - 1].title;
     trackTitleBox[0].innerHTML = trackTitle;
@@ -397,7 +397,7 @@ var audioPlayer = function (DATA) {
   var _trackHasEnded = function () {
     parseInt(_currentTrack);
     _currentTrack =
-      _currentTrack === DATA.trackList.length ? 1 : _currentTrack + 1;
+      _currentTrack === _Tracks.length ? 1 : _currentTrack + 1;
     _trackLoaded = false;
 
     // _resetPlayStatus();
@@ -411,12 +411,12 @@ var audioPlayer = function (DATA) {
    **/
   var _trackTimeChanged = function () {
     var currentTimeBox = document.querySelector(
-      "#Section__Playlist .Container__Progress .Player__Time .Current"
+      "#Playlist .Container__Progress .Player__Time .Current"
     );
     var currentTime = _elements.audio.currentTime;
     var duration = _elements.audio.duration;
     var durationBox = document.querySelector(
-      "#Section__Playlist .Container__Progress .Player__Time .Duration"
+      "#Playlist .Container__Progress .Player__Time .Duration"
     );
     var trackCurrentTime = _trackTime(currentTime);
     var trackDuration = duration ? _trackTime(duration) : "00:00";
@@ -509,11 +509,11 @@ var audioPlayer = function (DATA) {
       _elements.playerButtons.nextTrackBtn.classList.remove("disabled");
     } else if (
       _currentTrack > 1 &&
-      _currentTrack !== DATA.trackList.length
+      _currentTrack !== _Tracks.length
     ) {
       _elements.playerButtons.previousTrackBtn.classList.remove("disabled");
       _elements.playerButtons.nextTrackBtn.classList.remove("disabled");
-    } else if (_currentTrack === DATA.trackList.length) {
+    } else if (_currentTrack === _Tracks.length) {
       _elements.playerButtons.previousTrackBtn.classList.remove("disabled");
       _elements.playerButtons.nextTrackBtn.classList.add("disabled");
     }

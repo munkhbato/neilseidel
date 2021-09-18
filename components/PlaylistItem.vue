@@ -22,8 +22,8 @@
       >
         <div class="Container__PlaylistItemImage ">
           <img
-            src="/images/shlomocover.jpg"
-            class="PlaylistItemImage__Component "
+            :src="album_thumbs.sm"
+            class="PlaylistItemImage__Component h-full mx-auto"
             style="opacity: 1;"
           />
         </div>
@@ -66,10 +66,9 @@ export default {
   name: "PlaylistItem",
   data() {
     return {
-      // track: this.track
     };
   },
-  props: ["track"]
+  props: ["track", "album_thumbs"]
 };
 </script>
 

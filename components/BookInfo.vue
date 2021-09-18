@@ -1,9 +1,9 @@
 <template>
-  <section class="Section py-5 mx-auto w-full px-5 sm:px-10 lg:w-2/3 2xl:w-1/2" id="bookInfo">
+  <section class="Section" id="bookInfo">
     <!-- start book details -->
     <div class="">
       <div class="mb-6 ">
-        <h3 class="text-2xl italic text-gray-200 bg-gray-800 w-auto inline-block px-2">Book</h3>
+        <h3 class="SectionTitle">Book</h3>
       </div>
       <!-- <hr class="mb-3"/> -->
       <div class="sm:flex">
@@ -16,7 +16,7 @@
               rel="noopener noreferrer"
             >
               <img
-                class=""
+                class="shadow "
                 style="width:160px;"
                 src="/images/leaving-life.jpg"
                 alt="Leaving life"
@@ -46,16 +46,16 @@
               rel="noopener noreferrer"
               style="text-decoration: none;"
             >
-              <div class="font-semibold text-xl">
+              <div class="font-semibold text-lg sm:text-xl">
                 Leaving Life
               </div>
-              <div class="">
+              <div class="text-sm sm:text-base">
                 A Simple Guide to Planning Your Estate and Not Leaving a Mess
               </div>
             </a>
           </div>
 
-          <p class="text-justify text-gray-800">
+          <p class="text-justify Paragraph">
             Leaving Life is an easy to read discussion of the need to plan one’s
             estate in order to avoid chaos, confusion and competition in the
             lives of those you leave behind. Other interesting topics include,

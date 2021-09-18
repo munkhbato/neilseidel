@@ -1,15 +1,5 @@
 <template>
-  <section
-    class="Section py-5 mx-auto w-full px-5 sm:px-10 lg:w-2/3 2xl:w-1/2"
-    id="Section__Playlist"
-  >
-    <div class="mb-6 ">
-      <h3
-        class="text-2xl italic text-gray-200 bg-gray-800 w-auto inline-block px-2"
-      >
-        Sample Music
-      </h3>
-    </div>
+  <div id="Playlist">
     <audio id="audio" preload="metadata" tabindex="0">
       Your browser does not support HTML5 audio.
     </audio>
@@ -19,12 +9,12 @@
           <div class="Container__Top p-4 sm:px-0 sm:flex">
             <div class="Container__Info flex sm:w-auto sm:h-auto">
               <div
-                class="Container__Image w-14 h-14 mr-4 rounded-lg overflow-hidden sm:w-40 sm:h-40 sm:rounded-xl sm:mr-6 shadow-inner"
+                class="Container__TrackImage w-14 h-14 mr-4 rounded-lg overflow-hidden sm:w-40 sm:h-40 sm:rounded-xl sm:mr-6 shadow-inner"
               >
                 <img
-                  src="/images/shlomocover400.jpg"
+                  :src="album_thumbs.lg"
                   alt=""
-                  class="w-full h-full"
+                  class="h-full mx-auto"
                 />
               </div>
               <div class="Track__Info w-auto sm:hidden">
@@ -52,7 +42,10 @@
                     ></div>
                   </div>
                   <div class="ProgressBar" color="rgb(255, 239, 175)">
-                    <div class="ProgressBar__Loaded" color="rgb(255, 239, 175)"></div>
+                    <div
+                      class="ProgressBar__Loaded"
+                      color="rgb(255, 239, 175)"
+                    ></div>
                     <div class="ProgressBar__Played" color="#ff4734"></div>
                     <div class="ProgressBar__Indicator"></div>
                   </div>
@@ -119,10 +112,11 @@
                   class="border-t border-gray-400"
                 >
                   <playlist-item
-                    v-for="(track, i) in tracks"
+                    v-for="(track, i) in tracks_data.tracks"
                     v-bind:key="i + 1"
                     :data-track-row="i + 1"
                     :track="track"
+                    :album_thumbs="album_thumbs"
                   ></playlist-item>
                 </div>
               </div>
@@ -131,61 +125,67 @@
         </div>
       </div>
     </div>
-  </section>
+
+    <div class="MoreSample mt-1 sm:mt-2" v-if="tracks_data.other_tracks.length > 0">
+      <div class="flex flex-wrap space-y-1 space-x-2 text-sm md:text-base">
+        <div class="font-medium px-1">Others:</div>
+        <div
+          v-for="(trStr, i) in tracks_data.other_tracks"
+          :key="i"
+          class="bg-gray-100 px-1 rounded"
+        >
+          {{ trStr }}
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import __DATA from "@/static/js/data.js";
 import audioPlayer from "@/static/js/player.js";
 
 export default {
-  name: "MusicPlayer",
+  props: ["tracks_data", "album_thumbs"],
   data() {
     return {
-      tracks: __DATA.trackList
     };
   },
   mounted() {
-    var player = new audioPlayer(__DATA);
+    var player = new audioPlayer(this.tracks_data.tracks);
     player.initPlayer();
   }
 };
 </script>
 
-<style lang="scss">
-#Section__Playlist {
-  // color: rgb(255, 239, 175) !important;
+<style lang="scss" scoped>
+.Container__BgOut {
+  background-color: rgba(0, 0, 0, 0.35);
+  background-image: url(~@/static/images/guitar.jpeg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  // &::before {
+  //   content: "";
+  //   display: block;
+  //   position: absolute;
+  //   inset: 0px;
+  //   pointer-events: none;
+  //   background-color: rgba(0, 0, 0, 0.35);
+  //   z-index: 0;
+  // }
+}
+.Container__BgIn {
+  backdrop-filter: blur(1.5px);
+}
+.Container__Full {
+  @apply text-gray-200;
+  max-width: 500px;
+}
 
-
-  .Container__BgOut {
-    background-color: rgba(0, 0, 0, 0.35);
-    background-image: url(/images/guitar.jpeg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    // &::before {
-    //   content: "";
-    //   display: block;
-    //   position: absolute;
-    //   inset: 0px;
-    //   pointer-events: none;
-    //   background-color: rgba(0, 0, 0, 0.35);
-    //   z-index: 0;
-    // }
-  }
-  .Container__BgIn {
-    backdrop-filter: blur(1.5px);
-  }
-  .Container__Full {
-    @apply text-gray-200;
-    max-width: 500px;
-  }
-
-  .Container__Image {
-    border: 1px solid rgba(17, 17, 17, 0.1);
-    & > img {
-      object-fit: cover;
-    }
+.Container__TrackImage {
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  & > img {
+    object-fit: cover;
   }
 }
 
