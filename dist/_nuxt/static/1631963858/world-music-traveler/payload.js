@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/world-music-traveler", {data:[{}],fetch:{},mutations:void 0});
