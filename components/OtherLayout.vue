@@ -11,10 +11,12 @@
           <slot name="description"></slot>
         </p>
         <!-- <div class="text-center w-full">
-            <img class="mx-auto h-60 w-auto" src="@/static/images/world-traveler-cover400.jpg" style="max-width: 100%;" alt=""/>
+            <img class="mx-auto h-60 w-auto" src="/images/world-traveler-cover400.jpg" style="max-width: 100%;" alt=""/>
           </div> -->
       </div>
-
+      <div class="text-left my-2">
+        <nuxt-link to="/#albums-section" class="text-blue-600 font-medium">&lt;&lt; Home</nuxt-link>
+      </div>
       <music-playlist
         :tracks_data="tracks_data"
         :album_thumbs="album_thumbs"
@@ -32,7 +34,7 @@
         <slot name="notes"></slot>
       </p>
       <div class="text-left mt-5">
-        <a href="/" class="text-blue-600 font-medium">&lt;&lt; Home</a>
+        <nuxt-link to="/#albums-section" class="text-blue-600 font-medium">&lt;&lt; Home</nuxt-link>
       </div>
     </section>
   </div>

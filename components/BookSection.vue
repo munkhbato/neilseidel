@@ -1,6 +1,5 @@
 <template>
-  <section class="Section" id="bookInfo">
-    <!-- start book details -->
+  <section>
     <div class="">
       <div class="mb-6 ">
         <h3 class="SectionTitle">Book</h3>
@@ -49,7 +48,7 @@
               <div class="font-semibold text-lg sm:text-xl">
                 Leaving Life
               </div>
-              <div class="text-sm sm:text-base">
+              <div class="Simple__Text">
                 A Simple Guide to Planning Your Estate and Not Leaving a Mess
               </div>
             </a>
@@ -69,13 +68,12 @@
         </div>
       </div>
     </div>
-    <!-- end -->
   </section>
 </template>
 
 <script>
 export default {
-  name: 'BookInfo'
+  name: 'BookSection'
 }
 </script>
 <style></style>

@@ -1,12 +1,7 @@
 <template>
-  <section
-    class="Section "
-    id="Section__Albums"
-  >
+  <section>
     <div class="mb-6 ">
-      <h3
-        class="SectionTitle"
-      >
+      <h3 class="SectionTitle">
         Albums
       </h3>
     </div>

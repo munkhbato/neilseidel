@@ -1,13 +1,13 @@
 <template>
   <div class="Container__Album">
-    <a target="_blank" :href="album.link">
+    <nuxt-link :to="album.link">
       <div class="Container__Image ">
         <img :src="album.src" alt="" />
       </div>
       <div class="Album__Title">
         {{ album.title }}
       </div>
-    </a>
+    </nuxt-link>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <section class="Section " id="Section__Embed">
+  <section>
     <div class="mb-6 ">
       <h3 class="SectionTitle">
         More Music
@@ -7,39 +7,43 @@
     </div>
 
     <div class="flex flex-wrap justify-around">
-      <div class="w-auto mb-3 mr-3 text-center">
+      <div class="Container_EmbedItem">
         <iframe
           class=""
           src="https://www.youtube.com/embed/ebwSvJw5yUw"
           frameborder="0"
           allowfullscreen
         ></iframe>
-        <p class="text-sm sm:text-base">
+        <p class="Simple__Text">
           Shanti featuting Zakir Hussain,<br />
           Ashish Khan and Neil Seidel
         </p>
       </div>
-      <div class="w-auto mb-3 mr-3 text-center">
+      <div class="Container_EmbedItem">
         <iframe
           class=""
           src="https://www.youtube.com/embed/GYFs50HrIYs"
           frameborder="0"
           allowfullscreen
         ></iframe>
-        <p class="text-sm sm:text-base">Groundhog day video</p>
+        <p class="Simple__Text">Groundhog day video</p>
       </div>
-      <div class="w-auto mb-3 mr-3 text-center">
+      <div class="Container_EmbedItem">
         <iframe
           class=""
           src="https://www.youtube.com/embed/gdd1Ql6a_ks"
           frameborder="0"
           allowfullscreen
         ></iframe>
-        <p class="text-sm sm:text-base">I wish i could write a song</p>
+        <p class="Simple__Text">I wish i could write a song</p>
       </div>
     </div>
     <div class="mt-3">
-      <a href="https://www.youtube.com/user/guitarflight" target="_blank" class="block">
+      <a
+        href="https://www.youtube.com/user/guitarflight"
+        target="_blank"
+        class="block"
+      >
         <img
           src="images/youtube_btn.png"
           width="131"
@@ -58,4 +62,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.Container__EmbedItem {
+  @apply w-auto mb-3 mr-3 text-center;
+}
+</style>

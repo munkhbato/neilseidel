@@ -19,4 +19,8 @@ div {
 .Paragraph {
   @apply mb-2 text-gray-800 text-sm sm:text-base leading-relaxed sm:leading-loose;
 }
+
+.Simple__Text {
+  @apply text-sm sm:text-base;
+}
 </style>
