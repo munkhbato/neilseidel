@@ -1,4 +1,4 @@
-var audioPlayer = function (_Tracks=[], basePath="/audio/") {
+var audioPlayer = function (_Tracks, basePath) {
   "use strict";
 
   // Private variables

@@ -1,4 +1,4 @@
-var audioPlayer = function (_Tracks) {
+var audioPlayer = function (_Tracks, basePath) {
   "use strict";
 
   // Private variables
@@ -348,7 +348,7 @@ var audioPlayer = function (_Tracks) {
   var _setTrack = function () {
     document.querySelector(".ProgressBar__Played").style.width = "0%";
 
-    var songURL = _Tracks[_currentTrack - 1].src;
+    var songURL = basePath + _Tracks[_currentTrack - 1].src;
 
     _elements.audio.setAttribute("src", songURL);
     _elements.audio.load();

@@ -2,7 +2,7 @@
   <div class="Container__Album">
     <nuxt-link :to="album.link">
       <div class="Container__Image ">
-        <img :src="album.src" alt="" />
+        <img :src="require('@/static/images/'+album.src)" alt="" />
       </div>
       <div class="Album__Title">
         {{ album.title }}

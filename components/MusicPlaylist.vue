@@ -146,12 +146,12 @@ import audioPlayer from "@/static/js/player.js";
 
 export default {
   props: ["tracks_data", "album_thumbs"],
-  data() {
-    return {
-    };
-  },
+  // data() {
+  //   return {
+  //   };
+  // },
   mounted() {
-    var player = new audioPlayer(this.tracks_data.tracks);
+    var player = new audioPlayer(this.tracks_data.tracks, "/audio/");
     player.initPlayer();
   }
 };
