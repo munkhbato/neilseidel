@@ -151,7 +151,7 @@ export default {
   //   };
   // },
   mounted() {
-    console.log(this.$nuxt)
+    // console.log(this.$nuxt)
     var player = new audioPlayer(this.tracks_data.tracks, this.$nuxt.$router.history.base + "/audio/");
     player.initPlayer();
   }
