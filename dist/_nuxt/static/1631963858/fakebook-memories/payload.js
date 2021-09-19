@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/fakebook-memories", {data:[{}],fetch:{},mutations:void 0});

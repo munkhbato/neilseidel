@@ -45,7 +45,7 @@
         class="block"
       >
         <img
-          src="images/youtube_btn.png"
+          src="/images/youtube_btn.png"
           width="131"
           height="50"
           class="mx-auto"

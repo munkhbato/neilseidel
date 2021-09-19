@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/vintage-guitar", {data:[{}],fetch:{},mutations:void 0});
