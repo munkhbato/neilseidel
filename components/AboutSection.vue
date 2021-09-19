@@ -1,7 +1,7 @@
 <template>
   <section>
     <!-- <div class="decor-1">
-        <img src="/images/decor-01-132x283.png" alt="" width="132" height="283">
+        <img src="@/static/images/decor-01-132x283.png" alt="" width="132" height="283">
       </div> -->
     <div class="Container__AboutFull md:flex md:flex-wrap">
       <div class="Container__Description1">
@@ -31,7 +31,7 @@
       </div>
       <div class="Container__AboutRight">
         <div class="Container__AboutImage">
-          <img src="/images/nsstjames300.jpg" alt="" class="AboutImage" />
+          <img src="@/static/images/nsstjames300.jpg" alt="" class="AboutImage" />
         </div>
         <div class="mb-3" style="">
           <a class="ContactButton" href="mailto:guitarflight@aol.com">

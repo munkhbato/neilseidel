@@ -30,8 +30,8 @@ export default {
     return {
       tracks_data: TracksData["index"],
       album_thumbs: {
-        lg: "/images/world-traveler-cover400.jpg",
-        sm: "/images/world-traveler-cover.jpg"
+        lg: "world-traveler-cover400.jpg",
+        sm: "world-traveler-cover.jpg"
       }
     };
   }

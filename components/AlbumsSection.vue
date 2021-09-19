@@ -15,7 +15,7 @@
 
     <!-- <div class="decor-3">
       <img
-        src="/images/decor-03-1343x1845.png"
+        src="@/static/images/decor-03-1343x1845.png"
         alt=""
         width="1343"
         height="1845"

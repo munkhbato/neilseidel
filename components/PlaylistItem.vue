@@ -22,7 +22,7 @@
       >
         <div class="Container__PlaylistItemImage ">
           <img
-            :src="album_thumbs.sm"
+            :src="require('@/static/images/'+album_thumbs.sm)"
             class="PlaylistItemImage__Component h-full mx-auto"
             style="opacity: 1;"
           />

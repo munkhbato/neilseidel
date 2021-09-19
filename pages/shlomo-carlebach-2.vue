@@ -30,8 +30,8 @@ export default {
          
       },
       album_thumbs: {
-      lg: "/images/shlomo2400.jpg",
-      sm: "/images/shlomo2150.jpg"}
+      lg: "shlomo2400.jpg",
+      sm: "shlomo2150.jpg"}
     };
   }
 };

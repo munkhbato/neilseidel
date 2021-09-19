@@ -18,8 +18,8 @@ export default {
         title: ""
       },
       album_thumbs: {
-        lg: "/images/vintageguitar2cover.jpg",
-        sm: "/images/vintageguitar2cover.jpg"
+        lg: "vintageguitar2cover.jpg",
+        sm: "vintageguitar2cover.jpg"
       }
     };
   }

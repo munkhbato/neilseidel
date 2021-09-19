@@ -28,8 +28,8 @@ export default {
         title: "",
       },
       album_thumbs: {
-        lg: "/images/jacques400.jpg",
-        sm: "/images/jacques150.jpg"
+        lg: "jacques400.jpg",
+        sm: "jacques150.jpg"
       }
     };
   }

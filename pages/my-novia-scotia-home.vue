@@ -20,8 +20,8 @@ export default {
          
       },
       album_thumbs: {
-        lg: "/images/ns-home-cover400.jpg",
-        sm: "/images/ns-home-cover150.jpg"
+        lg: "ns-home-cover400.jpg",
+        sm: "ns-home-cover150.jpg"
       }
     };
   }

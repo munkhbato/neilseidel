@@ -12,7 +12,7 @@
                 class="Container__TrackImage w-14 h-14 mr-4 rounded-lg overflow-hidden sm:w-40 sm:h-40 sm:rounded-xl sm:mr-6 shadow-inner"
               >
                 <img
-                  :src="album_thumbs.lg"
+                  :src="require('@/static/images/'+album_thumbs.lg)"
                   alt=""
                   class="h-full mx-auto"
                 />

@@ -74,8 +74,8 @@ export default {
         title: "Recent Reviews",
       },
       album_thumbs: {
-        lg: "/images/vintageguitar.jpg",
-        sm: "/images/vintageguitar.jpg"
+        lg: "vintageguitar.jpg",
+        sm: "vintageguitar.jpg"
       }
     };
   }

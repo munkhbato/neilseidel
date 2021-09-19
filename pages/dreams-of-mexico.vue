@@ -17,8 +17,8 @@ export default {
         title: ""
       },
       album_thumbs: {
-        lg: "/images/mexcover.jpg",
-        sm: "/images/mexcover.jpg"
+        lg: "mexcover.jpg",
+        sm: "mexcover.jpg"
       }
     };
   }

@@ -11,7 +11,7 @@
           <slot name="description"></slot>
         </p>
         <!-- <div class="text-center w-full">
-            <img class="mx-auto h-60 w-auto" src="/images/world-traveler-cover400.jpg" style="max-width: 100%;" alt=""/>
+            <img class="mx-auto h-60 w-auto" src="@/static/images/world-traveler-cover400.jpg" style="max-width: 100%;" alt=""/>
           </div> -->
       </div>
       <div class="text-left my-2">

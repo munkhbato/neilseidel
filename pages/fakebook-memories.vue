@@ -69,8 +69,8 @@ export default {
         title: "Album Notes",
       },
       album_thumbs: {
-        lg: "/images/fakebookmemories.jpg",
-        sm: "/images/fakebookmemories.jpg"
+        lg: "fakebookmemories.jpg",
+        sm: "fakebookmemories.jpg"
       }
     };
   }

@@ -23,8 +23,8 @@ export default {
          
       },
       album_thumbs: {
-        lg: "/images/princess.jpg",
-        sm: "/images/princess.jpg"
+        lg: "princess.jpg",
+        sm: "princess.jpg"
       }
     };
   }

@@ -4,7 +4,7 @@
       <h3 class="text-xl sm:text-2xl font-medium mb-6">Contact</h3>
       <div class="mt-1 mb-2 ml-5 flex items-center justify-center Simpple__Text">
         <div class="icon-envelope mr-2 w-4 h-4">
-          <img src="/images/envelope.png" alt="">
+          <img src="@/static/images/envelope.png" alt="">
         </div>
         <a href="mailto:guitarflight@aol.com" class="text-blue-600 w-auto">
           guitarflight@aol.com

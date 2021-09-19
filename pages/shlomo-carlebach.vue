@@ -78,8 +78,8 @@ export default {
          
       },
       album_thumbs: {
-        lg: "/images/shlomocover400.jpg",
-        sm: "/images/shlomocover.jpg"
+        lg: "shlomocover400.jpg",
+        sm: "shlomocover.jpg"
       }
     };
   }
