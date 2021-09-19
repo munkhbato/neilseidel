@@ -7,7 +7,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "deploy": "push-dir --dir=build --branch=gh-pages"
+    "gencp": "nuxt generate && cp -a dist/. ~/Public/DEV/neil/ && code ~/Public/DEV/neil/.",
+    "deploy": "push-dir --dir=dist --branch=master --verbose"
   },
   "dependencies": {
     "core-js": "^3.15.1",
