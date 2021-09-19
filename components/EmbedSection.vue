@@ -14,7 +14,7 @@
           frameborder="0"
           allowfullscreen
         ></iframe>
-        <p class="Simple__Text">
+        <p class="Simple__Text text-center">
           Shanti featuting Zakir Hussain,<br />
           Ashish Khan and Neil Seidel
         </p>
@@ -26,7 +26,7 @@
           frameborder="0"
           allowfullscreen
         ></iframe>
-        <p class="Simple__Text">Groundhog day video</p>
+        <p class="Simple__Text text-center">Groundhog day video</p>
       </div>
       <div class="Container_EmbedItem">
         <iframe
@@ -35,7 +35,7 @@
           frameborder="0"
           allowfullscreen
         ></iframe>
-        <p class="Simple__Text">I wish i could write a song</p>
+        <p class="Simple__Text text-center">I wish i could write a song</p>
       </div>
     </div>
     <div class="mt-3">

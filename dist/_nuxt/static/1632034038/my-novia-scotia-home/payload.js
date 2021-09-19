@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/my-novia-scotia-home", {data:[{}],fetch:{},mutations:void 0});
