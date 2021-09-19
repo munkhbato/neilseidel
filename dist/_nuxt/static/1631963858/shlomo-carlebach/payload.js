@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/shlomo-carlebach", {data:[{}],fetch:{},mutations:void 0});
